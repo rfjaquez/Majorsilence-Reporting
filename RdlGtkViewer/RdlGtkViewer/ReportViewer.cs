@@ -462,14 +462,14 @@ namespace fyiReporting.RdlGtkViewer
             }
             
             if(!restrictedOutputPresentationTypes.Contains(OutputPresentationType.ExcelTableOnly)) {
-                Gtk.FileFilter excel2007Data = new Gtk.FileFilter { Name = "Excel no formatting (Fast)" };
+                Gtk.FileFilter excel2007Data = new Gtk.FileFilter { Name = "Excel без форматирования (Быстро)" };
                 var extensionXLSX = ".xlsx";
                 excel2007Data.AddPattern($"*{extensionXLSX}");
                 fc.AddFilter(excel2007Data);
             }
             
             if(!restrictedOutputPresentationTypes.Contains(OutputPresentationType.Excel2007)) {
-                Gtk.FileFilter excel2007 = new Gtk.FileFilter { Name = "Excel with formatting (Slow)" };
+                Gtk.FileFilter excel2007 = new Gtk.FileFilter { Name = "Excel с форматированием (Долго)" };
                 var extensionXLSX = ".xlsx";
                 excel2007.AddPattern($"*{extensionXLSX}");
                 fc.AddFilter(excel2007);
@@ -548,7 +548,7 @@ namespace fyiReporting.RdlGtkViewer
                             searchPattern = "*.pdf";
                         }
                     }
-                    else if (fc.Filter.Name == "Excel 2007 Data")
+                    else if (fc.Filter.Name == "Excel без форматирования (Быстро)")
                     {
 						exportType = OutputPresentationType.ExcelTableOnly;
                         if (filename.ToLower().Trim().EndsWith(".xlsx") == false)
@@ -557,7 +557,7 @@ namespace fyiReporting.RdlGtkViewer
                             searchPattern = "*.xlsx";
                         }
                     }
-					else if(fc.Filter.Name == "Excel 2007") {
+					else if(fc.Filter.Name == "Excel с форматированием (Долго)") {
 						exportType = OutputPresentationType.Excel2007;
 						if(filename.ToLower().Trim().EndsWith(".xlsx") == false) {
 							filename = filename + ".xlsx";
@@ -736,6 +736,9 @@ namespace fyiReporting.RdlGtkViewer
 
 		void HandlePrintBeginPrint (object o, BeginPrintArgs args)
 		{
+            if(printing == null || pages == null) {
+                return;
+            }
 			printing.NPages = pages.Count;
 		}
 
